@@ -1,8 +1,8 @@
-# Nuxt.js构建美团网主页
+# Vue SSR构建美团网主页
 
-+ based on nuxt.js 2.0.0
-+ using vue.js 2.5
-+ element-ui as UI framwork
++ based on nuxt.js && vue.js
++ using redis && mongodb
++ element-UI
 
 ## Something to start with
 
