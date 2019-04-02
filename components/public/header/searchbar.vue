@@ -2,25 +2,18 @@
   <div class="search-panel">
     <el-row class="m-header-searchbar">
       <el-col :span="3" class="left">
-        <img src="https://s0.meituan.net/bs/fe-web-meituan/e5eeaef/img/logo.png" alt="">
+        <img src="https://s0.meituan.net/bs/fe-web-meituan/e5eeaef/img/logo.png" alt="美团">
       </el-col>
       <el-col :span="15" class="center">
         <div class="wrapper">
-          <el-input placeholder="搜索商家或地点" />
-          <button class="el-button el-button-primary"><i class="el-icon-search" /></button>
-          <dl class="hotPlace">
+          <el-input v-model="search" placeholder="搜索商家或地点" @focus="focus" @blur="blur" @input="input"/>
+          <button class="el-button el-button--primary"><i class="el-icon-search" /></button>
+          <dl v-if="isHotPlace" class="hotPlace">
             <dt>热门搜索</dt>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
+            <dd v-for="(item,idx) in hotPlace" :key="idx">{{ item }}</dd>
           </dl>
-          <dl class="searchList">
-            <dd>火锅</dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
-            <dd>火锅</dd>
+          <dl v-if="isSearchList" class="searchList">
+            <dd v-for="(item,idx) in searchList" :key="idx">{{ item }}</dd>
           </dl>
         </div>
         <p class="suggest">
@@ -52,7 +45,34 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      search: '',
+      isFocus: false,
+      hotPlace: ['火锅', '烤肉', '日料'],
+      searchList: ['1', '2', '3']
+    }
+  },
+  computed: {
+    isHotPlace: function () {
+      return this.isFocus && !this.search
+    },
+    isSearchList: function () {
+      return this.isFocus && this.search
+    }
+  },
+  methods: {
+    focus: function () {
+      this.isFocus = true
+    },
+    blur: function () {
+      const self = this
+      setTimeout(function () {
+        self.isFocus = false
+      }, 200)
+    },
+    input: function () {
+      //
+    }
   },
   components: {}
 }

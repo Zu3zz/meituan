@@ -5,11 +5,11 @@
         <top-bar />
       </el-col>
     </el-row>
-    <el-cow>
+    <el-row>
       <el-col>
         <search-bar />
       </el-col>
-    </el-cow>
+    </el-row>
   </div>
 </template>
 
