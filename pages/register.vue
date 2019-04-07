@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import CryptoJS from 'crypto-js'
 export default {
   layout: 'blank',
   components: {},
@@ -94,7 +95,6 @@ export default {
       }
     }
   },
-  layout: 'blank',
   methods: {
     sendMsg: function () {
       const self = this
@@ -103,14 +103,14 @@ export default {
       if (self.timerid) {
         return false
       }
-      this.$refs['ruleForm'].validateField('name', (valid) => {
+      this.$refs.ruleForm.validateField('name', (valid) => {
         namePass = valid
       })
       self.statusMsg = ''
       if (namePass) {
         return false
       }
-      this.$refs['ruleForm'].validateField('email', (valid) => {
+      this.$refs.ruleForm.validateField('email', (valid) => {
         emailPass = valid
       })
       if (!namePass && !emailPass) {
@@ -134,7 +134,30 @@ export default {
       }
     },
     register: function () {
-      //
+      let self = this
+      this.$refs.ruleForm.validate((valid) => {
+        if (valid) {
+          self.$axios.post('/users/signup', {
+            username: window.encodeURIComponent(self.ruleForm.name),
+            password: CryptoJS.MD5(self.ruleForm.pwd).toString(),
+            email: self.ruleForm.email,
+            code: self.ruleForm.code
+          }).then(({ status, data }) => {
+            if (status === 200) {
+              if (data && data.code === 0) {
+                location.href = '/login'
+              } else {
+              self.error = data.msg
+              }
+            } else {
+              self.error = `服务器出错，错误码${status}`
+            }
+            setTimeout(function () {
+              self.error = ''
+            }, 1500)
+          })
+        }
+      })
     }
   }
 }

@@ -18,6 +18,7 @@ module.exports = {
     "prefer-const": 'off',
     'no-lonely-if': 'off',
     'no-console': 'off',
-    'require-await': 'off'
+    'require-await': 'off',
+    "vue/singleline-html-element-content-newline": 'off'
   },
 }
