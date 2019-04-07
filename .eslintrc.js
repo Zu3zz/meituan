@@ -17,6 +17,7 @@ module.exports = {
     'indent': 'off',
     "prefer-const": 'off',
     'no-lonely-if': 'off',
-    'no-console': 'off'
+    'no-console': 'off',
+    'require-await': 'off'
   },
 }

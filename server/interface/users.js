@@ -6,9 +6,7 @@ import Email from '../dbs/config'
 import Passport from './utils/passport'
 import axios from './utils/axios'
 
-let router = new Router({
-  prefix: '/users'
-})
+const router = new Router({ prefix: '/users' })
 
 let Store = new Redis().client
 

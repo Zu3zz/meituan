@@ -3,6 +3,7 @@
 + based on nuxt.js && vue.js
 + using redis && mongodb
 + element-UI
++ koa2 && other midleware
 
 ## Something to start with
 

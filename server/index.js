@@ -1,8 +1,5 @@
 // const Koa = require('koa')
 import Koa from 'koa'
-const consola = require('consola')
-const { Nuxt, Builder } = require('nuxt')
-
 import mongoose, { mongo } from 'mongoose'
 import bodyParser from 'koa-bodyparser'
 import session from 'koa-generic-session'
@@ -12,9 +9,10 @@ import dbConfig from './dbs/config'
 import passport from './interface/utils/passport'
 import users from './interface/users'
 
+const consola = require('consola')
+const { Nuxt, Builder } = require('nuxt')
+
 const app = new Koa()
-const host = process.env.HOST || '127.0.0.1'
-const port = process.env.PORT || 3000
 
 app.keys = ['mt', 'keyskeys']
 app.proxy = true
@@ -48,7 +46,7 @@ async function start() {
   } else {
     await nuxt.ready()
   }
-
+  app.use(users.routes()).use(users.allowedMethods())
   app.use((ctx) => {
     ctx.status = 200
     ctx.respond = false // Bypass Koa's built-in response handling

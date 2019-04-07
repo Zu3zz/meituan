@@ -12,7 +12,7 @@
       </header>
     </article>
     <section>
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
         <el-form-item label="昵称" prop="name">
           <el-input v-model="ruleForm.name" />
         </el-form-item>
@@ -94,11 +94,48 @@ export default {
       }
     }
   },
+  layout: 'blank',
   methods: {
     sendMsg: function () {
-      //
+      const self = this
+      let namePass
+      let emailPass
+      if (self.timerid) {
+        return false
+      }
+      this.$refs['ruleForm'].validateField('name', (valid) => {
+        namePass = valid
+      })
+      self.statusMsg = ''
+      if (namePass) {
+        return false
+      }
+      this.$refs['ruleForm'].validateField('email', (valid) => {
+        emailPass = valid
+      })
+      if (!namePass && !emailPass) {
+        self.$axios.post('/users/verify', {
+          username: encodeURIComponent(self.ruleForm.name),
+          emal: self.ruleForm.email
+        }).then(({ status, data }) => {
+          if (status === 200 && data && data.code === 0) {
+            let count = 60
+            self.statusMsg = `验证码已发送,剩余${count--}秒`
+            self.timerid = setInterval(function () {
+              self.statusMsg = `验证码已发送，剩余${count--}秒`
+              if (count === 0) {
+                clearInterval(self.timerid)
+              }
+            }, 1000)
+          } else {
+            self.statusMsg = data.msg
+          }
+        })
+      }
     },
-    register: function () {}
+    register: function () {
+      //
+    }
   }
 }
 </script>
