@@ -1,6 +1,6 @@
 // const Koa = require('koa')
 import Koa from 'koa'
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 import bodyParser from 'koa-bodyparser'
 import session from 'koa-generic-session'
 import Redis from 'koa-redis'
