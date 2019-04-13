@@ -6,22 +6,18 @@
       </el-col>
       <el-col :span="15" class="center">
         <div class="wrapper">
-          <el-input v-model="search" placeholder="搜索商家或地点" @focus="focus" @blur="blur" @input="input"/>
+          <el-input v-model="search" placeholder="搜索商家或地点" @focus="focus" @blur="blur" @input="input" />
           <button class="el-button el-button--primary"><i class="el-icon-search" /></button>
           <dl v-if="isHotPlace" class="hotPlace">
             <dt>热门搜索</dt>
-            <dd v-for="(item,idx) in hotPlace" :key="idx">{{ item }}</dd>
+            <dd v-for="(item,idx) in $store.state.home.hotPlace.slice(0,5)" :key="idx">{{ item.name }}</dd>
           </dl>
           <dl v-if="isSearchList" class="searchList">
-            <dd v-for="(item,idx) in searchList" :key="idx">{{ item }}</dd>
+            <dd v-for="(item,idx) in searchList" :key="idx">{{ item.name }}</dd>
           </dl>
         </div>
         <p class="suggest">
-          <a href="#">故宫博物院</a>
-          <a href="#">故宫博物院</a>
-          <a href="#">故宫博物院</a>
-          <a href="#">故宫博物院</a>
-          <a href="#">故宫博物院</a>
+          <a v-for="(item,idx) in $store.state.home.hotPlace.slice(0,5)" :key="idx" href="#">{{ item.name }}</a>
         </p>
         <ul class="nav">
           <li><nuxt-link to="/" class="takeout">美团外卖</nuxt-link></li>
@@ -43,13 +39,15 @@
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
+  components: {},
   data() {
     return {
       search: '',
       isFocus: false,
-      hotPlace: ['火锅', '烤肉', '日料'],
-      searchList: ['1', '2', '3']
+      hotPlace: [],
+      searchList: []
     }
   },
   computed: {
@@ -70,11 +68,19 @@ export default {
         self.isFocus = false
       }, 200)
     },
-    input: function () {
-      //
-    }
-  },
-  components: {}
+    input: _.debounce(async function () {
+      let self = this
+      let city = self.$store.state.geo.position.city.replace('市', '')
+      self.searchList = []
+      let { data: { top } } = await self.$axios.get('/search/top', {
+        params: {
+          input: self.search,
+          city
+        }
+      })
+      self.searchList = top.slice(0, 10)
+    }, 300)
+  }
 }
 </script>
 
