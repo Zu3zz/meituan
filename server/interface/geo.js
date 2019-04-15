@@ -45,6 +45,15 @@ router.get('/province', async (ctx) => {
   }
 })
 
+router.get('/province/:id', async (ctx) => {
+  let { status, data: { city } } = await axios.get(`http://cp-tools.cn/geo/province/${ctx.params.id}?sign=${sign}`)
+  if (status === 200) {
+    ctx.body = { city }
+  } else {
+    ctx.body = { city: [] }
+  }
+})
+
 router.get('/city', async (ctx) => {
   // let city = []
   // let result = await city.find()
@@ -62,9 +71,39 @@ router.get('/city', async (ctx) => {
   //   })
   // }
   let { status, data: { city } } = await axios.get(`http://cp-tools.cn/geo/city?sign=${sign}`)
-  ctx.body = {
-    province: status === 200 ? city : []
+  if (status === 200) {
+    ctx.body = { city }
+  } else {
+    ctx.body = { city: [] }
   }
 })
 
+router.get('/hotCity', async (ctx) => {
+  // let list = [
+  //   '北京市',
+  //   '上海市',
+  //   '广州市',
+  //   '深圳市',
+  //   '天津市',
+  //   '西安市',
+  //   '杭州市',
+  //   '南京市',
+  //   '武汉市',
+  //   '成都市'
+  // ]
+  // let result = await City.find()
+  // let nList = []
+  // result.forEach(item => {
+  //   nList = nList.concat(item.value.filter(k => list.includes(k.name) || list.includes(k.province)))
+  // })
+  // ctx.body = {
+  //   hots: nList
+  // }
+  let { status, data: { hots } } = await axios.get(`http://cp-tools.cn/geo/hotCity?sign=${sign}`)
+  if (status === 200) {
+    ctx.body = { hots }
+  } else {
+    ctx.body = { hots: [] }
+  }
+})
 export default router
