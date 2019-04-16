@@ -19,6 +19,7 @@ module.exports = {
     'no-lonely-if': 'off',
     'no-console': 'off',
     'require-await': 'off',
-    "vue/singleline-html-element-content-newline": 'off'
+    "vue/singleline-html-element-content-newline": 'off',
+    "standard/no-callback-literal": 'off'
   },
 }
