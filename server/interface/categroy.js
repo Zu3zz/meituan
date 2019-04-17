@@ -1,9 +1,7 @@
 import Router from 'koa-router'
 import axios from './utils/axios'
-
+import sign from './utils/sign'
 const router = new Router({ prefix: '/categroy' })
-
-const sign = '6fe542b840d3ab14ca5ac3ab95b6ab27'
 
 router.get('/crumbs', async (ctx) => {
   let { status, data: { areas, types } } = await axios.get('http://cp-tools.cn/categroy/crumbs', {

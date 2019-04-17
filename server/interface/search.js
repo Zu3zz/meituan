@@ -1,10 +1,9 @@
 import Router from 'koa-router'
 // import Poi from '../dbs/models/poi'
 import axios from './utils/axios'
+import sign from './utils/sign'
 
 const router = new Router({ prefix: '/search' })
-
-const sign = '6fe542b840d3ab14ca5ac3ab95b6ab27'
 
 router.get('/top', async (ctx) => {
   // 从本地服务器获取数据
