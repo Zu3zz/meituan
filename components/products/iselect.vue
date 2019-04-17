@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="m-product-select">
     <dl class="tab">
       <dt>{{ name }}<i class="el-icon-arrow-down el-icon--right" /></dt>
       <dd>
@@ -30,7 +30,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-
-</style>
