@@ -10,7 +10,7 @@
         <summa :meta="product" />
       </el-col>
     </el-row>
-    <el-row>
+    <el-row class="m-title">
       <el-col :span="24">
         <h3>商家团购及优惠</h3>
       </el-col>
