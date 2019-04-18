@@ -20,6 +20,7 @@ module.exports = {
     'no-console': 'off',
     'require-await': 'off',
     "vue/singleline-html-element-content-newline": 'off',
-    "standard/no-callback-literal": 'off'
+    "standard/no-callback-literal": 'off',
+    "arrow-parens": 'off'
   },
 }

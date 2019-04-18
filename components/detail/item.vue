@@ -40,9 +40,7 @@ export default {
         data: { code, id }
       } = await this.$axios.post('/cart/create', {
         params: {
-          id: Math.random()
-            .toString()
-            .slice(3, 9),
+          id: Math.random().toString().slice(3, 9),
           detail: {
             name: self.meta.name,
             price: self.meta.biz_ext.cost,
