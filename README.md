@@ -6,6 +6,12 @@
 + koa2 && other midleware
 
 ## Something to start with
+需要本地开启redis和mongodb服务
+打开两个新的terminal
+分别输入一下命令开启redis和mongodb
+$ redis-serve
+
+$ sudo mongod
 
 ``` bash
 # to install packages you should run
