@@ -16,4 +16,4 @@ $ yarn run dev
 
 ```
 ## 首页实际演示效果
-![图片](static/src/demo.png)
+![图片](static/src/index.png)
